@@ -19,6 +19,38 @@
     <link rel="stylesheet" href="assets/css/slick.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 
+
+<script>
+    async function includeHTML() {
+    const elements = document.querySelectorAll("[data-include]");
+
+    for (const element of elements) {
+        const file = element.getAttribute("data-include");
+
+        try {
+            const response = await fetch(file);
+
+            if (!response.ok) {
+                throw new Error(`Could not load ${file}`);
+            }
+
+            element.innerHTML = await response.text();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+includeHTML();
+
+
+
+    
+</script>
+
+
+    
+
 </head>
 
 <body class="biolife-body">
@@ -35,7 +67,7 @@
     </div>-->
 
     <!-- HEADER -->
-    <?php include('includes/navbar.php'); ?>
+    <div data-include="includes/header.html"></div>
     <!-- Page Contain -->
     <div class="page-contain">
 
@@ -2260,7 +2292,7 @@
         </div>
     </div>
 
-    <?php include('includes/footer.php'); ?>
+    <div data-include="includes/footer.html"></div>
 </body>
 
 </html>
